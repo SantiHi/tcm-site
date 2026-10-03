@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink: #111111;
+  --color-body: #6b6b6b;
+  --color-brand: #d97b2c;
+  --color-brand-dark: #c26c22;
+  --color-card: #f7f8fa;
+  --color-footer: #3d3230;
+  --color-line: #e2e5ea;
+
+  --font-heading: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-nav: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 12px;
+  --shadow-card: 0 1px 2px rgba(17, 17, 17, 0.04), 0 4px 16px rgba(17, 17, 17, 0.04);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: #ffffff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-[1100px] px-4 sm:px-6;
+  }
+
+  .card {
+    @apply bg-card rounded-card shadow-card p-6 sm:p-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-brand text-white font-semibold
+      rounded-[6px] px-6 h-12 transition-colors hover:bg-brand-dark
+      disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-ink text-ink
+      font-nav font-semibold uppercase tracking-[0.12em] text-xs px-6 h-11
+      transition-colors hover:bg-ink hover:text-white
+      disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .input {
+    @apply block w-full h-12 rounded-[4px] border border-line bg-white px-4 text-ink
+      placeholder:text-body/60 outline-none transition
+      focus:border-brand focus:ring-2 focus:ring-brand/25
+      disabled:bg-card disabled:text-body;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-ink mb-1.5;
+  }
+
+  .nav-link {
+    @apply inline-flex items-center leading-none font-nav uppercase font-semibold tracking-[0.12em] text-[13px] text-ink
+      hover:text-brand transition-colors cursor-pointer;
+  }
+
+  .link {
+    @apply text-brand underline-offset-2 hover:underline;
+  }
 }
